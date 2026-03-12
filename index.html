@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrea — UX & Product Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sky: #2C5F8A;
+  --sky-deep: #1A3A57;
+  --sky-mid: #4A7BA3;
+  --sky-light: #89B4D0;
+  --sky-pale: #C8DDE9;
+  --cloud: #EEF4F8;
+  --forest: #2D4A2E;
+  --forest-mid: #4A6B4B;
+  --forest-light: #7AA07B;
+  --forest-pale: #C2D6C2;
+  --white: #F8FAFC;
+  --ink: #0D1C28;
+  --ink-mid: #3A5068;
+  --ink-light: #7A95AA;
+  --warm: #D4A96A;
+  --warm-light: #EDD9B0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  padding: 0 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(248,250,252,0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(44,95,138,0.1);
+}
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  cursor: pointer;
+  text-decoration: none;
+}
+.nav-logo span { color: var(--sky); font-style: italic; }
+
+.nav-links { display: flex; gap: 36px; align-items: center; }
+
+.nav-links a {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+  position: relative;
+  padding-bottom: 2px;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 1px;
+  background: var(--sky);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--sky); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+/* ─── PAGES ─── */
+.page { display: none; padding-top: 64px; }
+.page.active { display: block; }
+
+/* ─── BUTTONS ─── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--sky-deep);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  text-decoration: none;
+}
+.btn-primary:hover { background: var(--sky); transform: translateY(-1px); }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--sky-deep);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 13px 28px;
+  border: 1px solid var(--sky-deep);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.btn-outline:hover { background: var(--sky-deep); color: white; }
+
+/* ─── SECTION LABEL ─── */
+.section-label {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--sky);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.section-label::before { content: ''; width: 28px; height: 1px; background: var(--sky); }
+
+/* ═══════════════════════════
+   HOME PAGE
+═══════════════════════════ */
+
+/* Hero */
+.hero {
+  min-height: calc(100vh - 64px);
+  display: grid;
+  grid-template-columns: 55% 45%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 80px 80px 80px;
+  position: relative;
+}
+
+.hero-left::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: linear-gradient(180deg, var(--sky) 0%, var(--forest-mid) 100%);
+}
+
+.hero-tag {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--sky);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-tag::before { content: ''; width: 28px; height: 1px; background: var(--sky); }
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(48px, 5.5vw, 78px);
+  font-weight: 300;
+  line-height: 1.06;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+.hero-title em { font-style: italic; color: var(--sky); }
+
+.hero-desc {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink-mid);
+  max-width: 480px;
+  margin-bottom: 40px;
+}
+
+.hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+
+.hero-right {
+  background: linear-gradient(160deg, var(--sky-deep) 0%, var(--sky) 40%, var(--sky-light) 70%, var(--forest-mid) 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.hero-visual {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 60px 40px;
+}
+
+.hero-visual-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 96px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.15);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  display: block;
+  transform: rotate(-8deg);
+  margin-bottom: 24px;
+}
+
+.hero-visual-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.hero-vtag {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(8px);
+  color: white;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  width: fit-content;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 80px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+}
+.hero-scroll::after {
+  content: '';
+  width: 60px; height: 1px;
+  background: var(--ink-light);
+  animation: scroll-line 2s ease-in-out infinite;
+}
+@keyframes scroll-line {
+  0%, 100% { width: 60px; opacity: 1; }
+  50% { width: 30px; opacity: 0.4; }
+}
+
+/* Expertise */
+.expertise {
+  padding: 120px 80px;
+  background: var(--white);
+}
+
+.expertise-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: end;
+  margin-bottom: 80px;
+}
+
+.expertise-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--ink);
+}
+.expertise-title em { font-style: italic; color: var(--sky); }
+
+.expertise-desc {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink-mid);
+  padding-top: 8px;
+}
+
+.expertise-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--sky-pale);
+}
+
+.exp-card {
+  background: var(--white);
+  padding: 48px 40px;
+  transition: transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.exp-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 0; height: 3px;
+  background: linear-gradient(90deg, var(--sky), var(--forest-mid));
+  transition: width 0.4s ease;
+}
+.exp-card:hover::before { width: 100%; }
+.exp-card:hover { transform: translateY(-4px); }
+
+.exp-icon {
+  width: 48px; height: 48px;
+  background: var(--sky-deep);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+  font-size: 20px;
+}
+
+.exp-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.exp-desc {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--ink-mid);
+  margin-bottom: 28px;
+}
+
+.exp-skills-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 12px;
+}
+
+.exp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.exp-tag {
+  font-size: 11px;
+  color: var(--sky-deep);
+  border: 1px solid var(--sky-pale);
+  padding: 4px 12px;
+  background: var(--cloud);
+}
+
+.exp-tools {
+  font-size: 12px;
+  color: var(--ink-light);
+  line-height: 1.6;
+}
+.exp-tools b { color: var(--ink-mid); font-weight: 500; }
+
+/* Projects Preview */
+.projects-preview {
+  padding: 0 80px 120px;
+}
+
+.projects-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 60px;
+}
+
+.projects-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 300;
+  color: var(--ink);
+}
+.projects-title em { font-style: italic; color: var(--sky); }
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.proj-card {
+  cursor: pointer;
+  group: true;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+.proj-card:hover { transform: translateY(-6px); }
+
+.proj-card-img {
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.proj-card-img-inner {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: white;
+  letter-spacing: 0.1em;
+  transition: transform 0.4s ease;
+}
+
+.proj-card:hover .proj-card-img-inner { transform: scale(1.04); }
+
+.proj-card-img-inner.malva { background: linear-gradient(135deg, #5C1A2A 0%, #8B2535 60%, #B34050 100%); }
+.proj-card-img-inner.ondademar { background: linear-gradient(135deg, var(--sky-deep) 0%, var(--sky) 60%, var(--sky-light) 100%); }
+.proj-card-img-inner.lacoste { background: linear-gradient(135deg, var(--forest) 0%, var(--forest-mid) 60%, var(--forest-light) 100%); }
+.proj-card-img-inner.crocs { background: linear-gradient(135deg, #B8860B 0%, var(--warm) 60%, var(--warm-light) 100%); }
+
+.proj-num {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--ink-light);
+  margin-bottom: 8px;
+}
+.proj-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.proj-role {
+  font-size: 12px;
+  color: var(--ink-light);
+  letter-spacing: 0.05em;
+}
+
+/* Contact Bar */
+.contact-bar {
+  background: var(--sky-deep);
+  padding: 60px 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.contact-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--sky-deep) 0%, var(--forest-mid) 100%);
+  opacity: 0.6;
+}
+.contact-bar-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 300;
+  color: white;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+.contact-bar-btn {
+  position: relative;
+  z-index: 1;
+  width: 60px; height: 60px;
+  background: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: transform 0.2s, background 0.2s;
+}
+.contact-bar-btn:hover { background: var(--warm); transform: scale(1.1); }
+
+/* Footer */
+footer {
+  background: var(--ink);
+  padding: 40px 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+}
+.footer-logo span { color: var(--sky-light); font-style: italic; }
+.footer-links { display: flex; gap: 28px; }
+.footer-links a {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--sky-light); }
+.footer-copy {
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
+}
+
+/* ═══════════════════════════
+   PROJECTS PAGE
+═══════════════════════════ */
+.page-hero {
+  padding: 80px 80px 60px;
+  background: linear-gradient(135deg, var(--sky-deep) 0%, var(--sky) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::after {
+  content: '';
+  position: absolute;
+  right: -100px; bottom: -100px;
+  width: 400px; height: 400px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+}
+.page-hero-label {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.page-hero-label::before { content: ''; width: 28px; height: 1px; background: rgba(255,255,255,0.4); }
+
+.page-hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(48px, 6vw, 80px);
+  font-weight: 300;
+  color: white;
+  line-height: 1.05;
+  position: relative;
+  z-index: 1;
+}
+.page-hero-title em { font-style: italic; opacity: 0.5; }
+
+.projects-full {
+  padding: 80px 80px;
+}
+
+.proj-full-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-bottom: 2px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: opacity 0.2s;
+}
+.proj-full-card:hover { opacity: 0.95; }
+.proj-full-card:nth-child(even) { direction: rtl; }
+.proj-full-card:nth-child(even) > * { direction: ltr; }
+
+.proj-full-img {
+  aspect-ratio: 16/10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 300;
+  color: white;
+  letter-spacing: 0.2em;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s;
+}
+.proj-full-card:hover .proj-full-img { transform: scale(1.03); }
+
+.proj-full-info {
+  padding: 60px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--cloud);
+}
+
+.proj-full-num {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--ink-light);
+  margin-bottom: 16px;
+}
+
+.proj-full-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.proj-full-type {
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--sky);
+  margin-bottom: 24px;
+}
+
+.proj-full-desc {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--ink-mid);
+  margin-bottom: 32px;
+}
+
+.proj-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+.chip {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--ink-mid);
+  border: 1px solid var(--sky-pale);
+  padding: 5px 14px;
+  background: white;
+}
+
+/* ═══════════════════════════
+   PROJECT DETAIL PAGE
+═══════════════════════════ */
+.project-detail-hero {
+  height: 60vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 60px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.project-detail-hero-content {
+  position: relative;
+  z-index: 1;
+}
+.project-detail-hero-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.project-detail-label {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+}
+.project-detail-label:hover { color: white; }
+
+.project-detail-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 300;
+  color: white;
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+.project-detail-meta {
+  display: flex;
+  gap: 40px;
+}
+.project-meta-item { }
+.project-meta-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 4px;
+}
+.project-meta-val {
+  font-size: 13px;
+  color: rgba(255,255,255,0.85);
+  font-weight: 400;
+}
+
+.project-body {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 80px 40px;
+}
+
+.project-section {
+  margin-bottom: 72px;
+}
+
+.project-section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--sky-pale);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.project-section-title::before {
+  content: '';
+  width: 4px; height: 28px;
+  background: linear-gradient(180deg, var(--sky) 0%, var(--forest-mid) 100%);
+  flex-shrink: 0;
+}
+
+.project-section p {
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--ink-mid);
+  margin-bottom: 16px;
+}
+
+.project-section ul {
+  padding-left: 20px;
+  margin-bottom: 16px;
+}
+.project-section li {
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--ink-mid);
+  margin-bottom: 8px;
+}
+
+.insight-box {
+  background: linear-gradient(135deg, var(--cloud) 0%, var(--sky-pale) 100%);
+  border-left: 3px solid var(--sky);
+  padding: 28px 32px;
+  margin: 32px 0;
+}
+.insight-box p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: var(--sky-deep);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.project-mockup {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--cloud);
+  border: 1px solid var(--sky-pale);
+  margin: 32px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: var(--ink-light);
+  font-style: italic;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-mockup-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 32px 0;
+}
+
+.result-stat {
+  background: var(--cloud);
+  padding: 32px;
+  text-align: center;
+  border-top: 3px solid var(--sky);
+}
+.result-stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 300;
+  color: var(--sky-deep);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.result-stat-label {
+  font-size: 12px;
+  color: var(--ink-mid);
+  letter-spacing: 0.1em;
+}
+
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--sky-pale);
+  margin: 32px 0;
+}
+
+/* ═══════════════════════════
+   ABOUT PAGE
+═══════════════════════════ */
+.about-hero {
+  min-height: 70vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+
+.about-hero-left {
+  background: linear-gradient(160deg, var(--sky-deep) 0%, var(--sky) 50%, var(--forest-mid) 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-hero-left::before {
+  content: 'A';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 400px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.05);
+  position: absolute;
+  line-height: 1;
+}
+
+.about-hero-left-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: white;
+}
+
+.about-avatar {
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.3);
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 64px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.7);
+}
+
+.about-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 300;
+  margin-bottom: 8px;
+}
+.about-title-tag {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+
+.about-hero-right {
+  padding: 80px 72px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-intro {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--ink);
+  margin-bottom: 32px;
+}
+.about-intro em { font-style: italic; color: var(--sky); }
+
+.about-bio {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--ink-mid);
+  margin-bottom: 40px;
+}
+
+.about-content {
+  padding: 100px 80px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  margin-bottom: 80px;
+}
+
+.about-block-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--sky-pale);
+}
+
+.about-block p {
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--ink-mid);
+  margin-bottom: 16px;
+}
+
+.trait-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--cloud);
+}
+.trait-icon {
+  font-size: 24px;
+  width: 44px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.trait-text strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.trait-text span {
+  font-size: 13px;
+  color: var(--ink-mid);
+  line-height: 1.5;
+}
+
+.skills-section {
+  background: var(--cloud);
+  padding: 80px 80px;
+}
+
+.skills-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 60px;
+  text-align: center;
+}
+.skills-title em { font-style: italic; color: var(--sky); }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.skill-group-title {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--sky);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.skill-group-title::before { content: ''; width: 20px; height: 1px; background: var(--sky); }
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--sky-pale);
+}
+.skill-item:last-child { border-bottom: none; }
+.skill-name { font-size: 13px; color: var(--ink-mid); }
+.skill-dots { display: flex; gap: 4px; }
+.skill-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--sky-pale);
+}
+.skill-dot.filled { background: var(--sky); }
+
+/* Board game easter egg */
+.boardgame-section {
+  padding: 80px 80px;
+  background: var(--white);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.boardgame-text .section-label { margin-bottom: 24px; }
+
+.boardgame-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+.boardgame-title em { font-style: italic; color: var(--forest-mid); }
+
+.boardgame-desc {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--ink-mid);
+}
+
+.boardgame-visual {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.bg-card {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--forest) 0%, var(--forest-mid) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  transition: transform 0.2s;
+  cursor: default;
+}
+.bg-card:hover { transform: scale(1.08) rotate(2deg); }
+.bg-card:nth-child(even) { background: linear-gradient(135deg, var(--sky-deep) 0%, var(--sky-mid) 100%); }
+.bg-card:nth-child(3n) { background: linear-gradient(135deg, #5C1A2A 0%, #8B2535 100%); }
+
+/* ─── Animations ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.6s ease both; }
+.fade-up-2 { animation: fadeUp 0.6s 0.15s ease both; }
+.fade-up-3 { animation: fadeUp 0.6s 0.3s ease both; }
+.fade-up-4 { animation: fadeUp 0.6s 0.45s ease both; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .hero, .about-hero, .boardgame-section { grid-template-columns: 1fr; }
+  .hero-right, .about-hero-left { display: none; }
+  .hero-left, .about-hero-right { padding: 60px 28px; }
+  .expertise { padding: 60px 28px; }
+  .expertise-header, .expertise-cards, .projects-grid, .skills-grid { grid-template-columns: 1fr; }
+  .projects-preview, .projects-full, .about-content, .skills-section, .boardgame-section { padding: 60px 28px; }
+  .contact-bar { padding: 40px 28px; }
+  footer { padding: 24px 28px; flex-direction: column; gap: 16px; text-align: center; }
+  .project-body { padding: 60px 24px; }
+  .project-detail-hero { padding: 40px 24px; }
+  .proj-full-card { grid-template-columns: 1fr; }
+  .proj-full-card:nth-child(even) { direction: ltr; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .result-stats { grid-template-columns: 1fr; }
+  .page-hero { padding: 60px 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">Andrea<span>.</span></a>
+  <div class="nav-links">
+    <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
+    <a onclick="showPage('projects')" id="nav-projects">Proyectos</a>
+    <a onclick="showPage('about')" id="nav-about">About</a>
+    <a onclick="showPage('contact')" id="nav-contact">Contacto</a>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════
+     HOME PAGE
+════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-tag fade-up">UX & Product Designer</div>
+      <h1 class="hero-title fade-up-2">
+        Conoce a<br><em>Andrea</em>
+      </h1>
+      <p class="hero-desc fade-up-3">
+        Una diseñadora e investigadora UX recorriendo un camino entre las letras y el diseño de experiencia de usuario, armada de curiosidad insaciable y amor por el diseño con significado.
+      </p>
+      <div class="hero-cta fade-up-4">
+        <a class="btn-primary" onclick="showPage('projects')">Ver Proyectos →</a>
+        <a class="btn-outline" onclick="showPage('about')">Sobre mí</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-visual">
+        <span class="hero-visual-name">A</span>
+        <div class="hero-visual-tags">
+          <div class="hero-vtag">UX Research</div>
+          <div class="hero-vtag">UI Design</div>
+          <div class="hero-vtag">Product Management</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- Expertise -->
+  <section class="expertise">
+    <div class="expertise-header">
+      <div>
+        <div class="section-label">Mi expertise</div>
+        <h2 class="expertise-title">
+          Tres pilares,<br>un <em>propósito</em>
+        </h2>
+      </div>
+      <p class="expertise-desc">
+        Como Product Designer, combino diseño, investigación y gestión para crear experiencias digitales que impactan tanto a usuarios como a equipos de desarrollo.
+      </p>
+    </div>
+    <div class="expertise-cards">
+      <div class="exp-card">
+        <div class="exp-icon">✏️</div>
+        <div class="exp-title">Design</div>
+        <p class="exp-desc">Me acerco a las páginas que diseño y rediseño con una mente abierta, adaptativa y creativa, buscando dotarlas de una identidad propia sin olvidar las limitantes que el desarrollo trae consigo.</p>
+        <div class="exp-skills-label">Core Skills</div>
+        <div class="exp-tags">
+          <span class="exp-tag">UI/UX Design</span>
+          <span class="exp-tag">Prototyping</span>
+          <span class="exp-tag">Design Systems</span>
+          <span class="exp-tag">Visual Identity</span>
+        </div>
+        <div class="exp-tools"><b>Tools:</b> Figma · Adobe XD · Sketch · InVision</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-icon">🔍</div>
+        <div class="exp-title">Research</div>
+        <p class="exp-desc">Ante las encuestas ignoradas y los datos confusos, soy siempre recursiva, encontrando soluciones y atajos para traer insights que tengan un impacto real tanto para los usuarios como para quienes requieren mi trabajo.</p>
+        <div class="exp-skills-label">Core Skills</div>
+        <div class="exp-tags">
+          <span class="exp-tag">User Interviews</span>
+          <span class="exp-tag">Data Analysis</span>
+          <span class="exp-tag">Usability Testing</span>
+          <span class="exp-tag">Personas & Journeys</span>
+        </div>
+        <div class="exp-tools"><b>Tools:</b> Maze · Hotjar · Google Analytics · UserTesting</div>
+      </div>
+      <div class="exp-card">
+        <div class="exp-icon">👥</div>
+        <div class="exp-title">Management</div>
+        <p class="exp-desc">Del diseño a la página web hay un largo camino, por lo que trabajo en quitar los obstáculos que puedan existir, armada de un plan detallado, buena comunicación, mucha paciencia y una sonrisa.</p>
+        <div class="exp-skills-label">Core Skills</div>
+        <div class="exp-tags">
+          <span class="exp-tag">Agile/Scrum</span>
+          <span class="exp-tag">Stakeholder Communication</span>
+          <span class="exp-tag">Project Planning</span>
+          <span class="exp-tag">Team Coordination</span>
+        </div>
+        <div class="exp-tools"><b>Tools:</b> Jira · Notion · Miro · Slack</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Preview -->
+  <section class="projects-preview">
+    <div class="projects-header">
+      <div>
+        <div class="section-label">Proyectos destacados</div>
+        <h2 class="projects-title">Mi <em>trabajo</em></h2>
+      </div>
+      <a class="btn-outline" onclick="showPage('projects')">Ver todos →</a>
+    </div>
+    <div class="projects-grid">
+      <div class="proj-card" onclick="showProject('malva')">
+        <div class="proj-card-img"><div class="proj-card-img-inner malva">MALVA</div></div>
+        <div class="proj-num">I</div>
+        <div class="proj-name">Malva Online</div>
+        <div class="proj-role">UI Design · Sofisticación y diseño</div>
+      </div>
+      <div class="proj-card" onclick="showProject('ondademar')">
+        <div class="proj-card-img"><div class="proj-card-img-inner ondademar">OndadeMar</div></div>
+        <div class="proj-num">II</div>
+        <div class="proj-name">Onda de Mar</div>
+        <div class="proj-role">UI Design · Returning to design</div>
+      </div>
+      <div class="proj-card" onclick="showProject('lacoste')">
+        <div class="proj-card-img"><div class="proj-card-img-inner lacoste">LACOSTE</div></div>
+        <div class="proj-num">III</div>
+        <div class="proj-name">Lacoste Colombia</div>
+        <div class="proj-role">Project Management · Worldwide presence</div>
+      </div>
+      <div class="proj-card" onclick="showProject('crocs')">
+        <div class="proj-card-img"><div class="proj-card-img-inner crocs">CROCS</div></div>
+        <div class="proj-num">IV</div>
+        <div class="proj-name">Crocs</div>
+        <div class="proj-role">UX Design · Split checkout</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Bar -->
+  <div class="contact-bar" onclick="showPage('contact')" style="cursor:pointer;">
+    <div class="contact-bar-text">¿Trabajamos juntos?</div>
+    <button class="contact-bar-btn">→</button>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo" onclick="showPage('home')">Andrea<span>.</span></div>
+    <div class="footer-links">
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('projects')">Proyectos</a>
+      <a onclick="showPage('about')">About</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </div>
+    <div class="footer-copy">© 2025 Andrea · UX & Product Designer</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════
+     PROJECTS PAGE
+════════════════════════════════ -->
+<div class="page" id="page-projects">
+  <div class="page-hero">
+    <div class="page-hero-label">Portfolio</div>
+    <h1 class="page-hero-title">Mis <em>Proyectos</em></h1>
+  </div>
+
+  <section class="projects-full">
+    <div class="proj-full-card" onclick="showProject('malva')">
+      <div class="proj-full-img malva" style="background: linear-gradient(135deg,#5C1A2A,#8B2535,#B34050)">MALVA</div>
+      <div class="proj-full-info">
+        <div class="proj-full-num">Proyecto I</div>
+        <div class="proj-full-name">Malva Online</div>
+        <div class="proj-full-type">UI Design · Ecommerce</div>
+        <p class="proj-full-desc">Redesign completo de la tienda online de Malva, una marca de moda colombiana de lujo. El desafío: crear una identidad digital sofisticada que refleje la exclusividad de la marca sin perder la funcionalidad ecommerce.</p>
+        <div class="proj-chips">
+          <span class="chip">UI Design</span><span class="chip">Figma</span><span class="chip">Ecommerce</span><span class="chip">Branding</span>
+        </div>
+        <a class="btn-primary" onclick="event.stopPropagation(); showProject('malva')">Ver caso de estudio →</a>
+      </div>
+    </div>
+
+    <div class="proj-full-card" onclick="showProject('ondademar')">
+      <div class="proj-full-img" style="background: linear-gradient(135deg,var(--sky-deep),var(--sky),var(--sky-light))">OndadeMar</div>
+      <div class="proj-full-info">
+        <div class="proj-full-num">Proyecto II</div>
+        <div class="proj-full-name">Onda de Mar</div>
+        <div class="proj-full-type">UI Design · Redesign · Fashion</div>
+        <p class="proj-full-desc">Volver al diseño UI después de un rol de investigación pura fue el reto de este proyecto. Rediseñé la página de Onda de Mar tomando decisiones de diseño basadas en la investigación previa del equipo.</p>
+        <div class="proj-chips">
+          <span class="chip">UI Redesign</span><span class="chip">Figma</span><span class="chip">Research-driven</span><span class="chip">Fashion</span>
+        </div>
+        <a class="btn-primary" onclick="event.stopPropagation(); showProject('ondademar')">Ver caso de estudio →</a>
+      </div>
+    </div>
+
+    <div class="proj-full-card" onclick="showProject('lacoste')">
+      <div class="proj-full-img" style="background: linear-gradient(135deg,var(--forest),var(--forest-mid),var(--forest-light))">LACOSTE</div>
+      <div class="proj-full-info">
+        <div class="proj-full-num">Proyecto III</div>
+        <div class="proj-full-name">Lacoste Colombia</div>
+        <div class="proj-full-type">Project Management · Ecommerce Global</div>
+        <p class="proj-full-desc">Gestión del proceso de adaptación del sitio de Lacoste Colombia a los estándares globales de la marca, tomando como referencia los sitios de Europa y Argentina para garantizar coherencia internacional.</p>
+        <div class="proj-chips">
+          <span class="chip">Project Management</span><span class="chip">Stakeholder Communication</span><span class="chip">Global Standards</span>
+        </div>
+        <a class="btn-primary" onclick="event.stopPropagation(); showProject('lacoste')">Ver caso de estudio →</a>
+      </div>
+    </div>
+
+    <div class="proj-full-card" onclick="showProject('crocs')">
+      <div class="proj-full-img" style="background: linear-gradient(135deg,#B8860B,var(--warm),var(--warm-light))">CROCS</div>
+      <div class="proj-full-info">
+        <div class="proj-full-num">Proyecto IV</div>
+        <div class="proj-full-name">Crocs — Split Checkout</div>
+        <div class="proj-full-type">UX Design · Checkout Flow</div>
+        <p class="proj-full-desc">Diseño de una funcionalidad de checkout dividido para resolver la restricción técnica de Crocs Colombia: los usuarios no podían comprar productos de diferentes bodegas en un mismo pedido.</p>
+        <div class="proj-chips">
+          <span class="chip">UX Design</span><span class="chip">User Flows</span><span class="chip">Checkout</span><span class="chip">Constraint Design</span>
+        </div>
+        <a class="btn-primary" onclick="event.stopPropagation(); showProject('crocs')">Ver caso de estudio →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo" onclick="showPage('home')">Andrea<span>.</span></div>
+    <div class="footer-links">
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('projects')">Proyectos</a>
+      <a onclick="showPage('about')">About</a>
+    </div>
+    <div class="footer-copy">© 2025 Andrea · UX & Product Designer</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════
+     PROJECT: MALVA
+════════════════════════════════ -->
+<div class="page" id="page-project-malva">
+  <div class="project-detail-hero">
+    <div class="project-detail-hero-bg" style="background: linear-gradient(135deg,#3D0E18 0%,#6B1A27 50%,#9C2E3E 100%)"></div>
+    <div class="project-detail-hero-content">
+      <div class="project-detail-label" onclick="showPage('projects')">← Proyectos</div>
+      <h1 class="project-detail-title">Malva Online,<br>sofisticación y diseño</h1>
+      <div class="project-detail-meta">
+        <div class="project-meta-item"><div class="project-meta-label">Rol</div><div class="project-meta-val">UI/UX Designer</div></div>
+        <div class="project-meta-item"><div class="project-meta-label">Industria</div><div class="project-meta-val">Fashion / Ecommerce</div></div>
+        <div class="project-meta-item"><div class="project-meta-label">Herramientas</div><div class="project-meta-val">Figma · Adobe XD</div></div>
+        <div class="project-meta-item"><div class="project-meta-label">Tipo</div><div class="project-meta-val">Redesign</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-body">
+    <div class="project-section">
+      <h2 class="project-section-title">Contexto</h2>
+      <p>En el proceso de finalizar el rediseño de Onda de Mar, con otro nuevo miembro del equipo, llegó la data para este proyecto. Esta vez era para una página que ya habíamos estado investigando durante más de 6 meses y que necesitaba ser modificada tan pronto como fuera posible.</p>
+      <p>Los requisitos de una nueva referencia (que buscaba dar más relevancia a los productos de lujo de Malva) lo hacían aún más interesante. Esta fue una propuesta comercial que buscó alinearse con la identidad de la marca Malva, su nueva responsabilidad era mía, así que me puse a adaptar mi diseño al test para entregar un producto de calidad sin demasiados tropiezos.</p>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Identificando el problema</h2>
+      <p>El sitio web que existía entonces había sido tomado en gran medida de una referencia extranjera, sin que la marca se hubiera dado a sí misma su propia identidad digital. No se percibía como un sitio web de un producto de lujo colombiano de alto valor.</p>
+
+      <div class="insight-box"><p>"El mayor desafío no era solo el diseño visual — era lograr que una marca de moda colombiana de lujo se viera y sintiera como tal, sin copiar fórmulas extranjeras."</p></div>
+
+      <p>Utilizamos una matriz de impacto para identificar los cambios que tendrían mayor efecto: imagen de hero, jerarquía de productos, tipografía y paleta de colores.</p>
+
+      <div class="project-mockup" style="background: linear-gradient(135deg, #f5e8e8 0%, #f0d0d5 100%);">
+        <span>Matriz de impacto — Componentes de Malva</span>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Research y descubrimientos</h2>
+      <p>Una de las primeras cosas que hicimos fue hacer un benchmark muy extenso de referentes visuales del sector lujo: tanto tiendas físicas como experiencias digitales. Identificamos que el lujo digital se construye con espacio en blanco, tipografía editorial y fotografía de producto con intención.</p>
+      <p>Descubrimos que la experiencia física del lujo no se puede trasladar 1:1 a digital — hay que encontrar el equivalente digital de esa experiencia sensorial exclusiva.</p>
+
+      <div class="project-mockup-grid">
+        <div class="project-mockup" style="aspect-ratio:1;">
+          <span>Benchmark visual</span>
+        </div>
+        <div class="project-mockup" style="aspect-ratio:1;">
+          <span>Fragmento del Design Journey</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Estrategia de Redesign</h2>
+      <p>Dadas las restricciones de tiempo, los diseños tenían que ser lo más polish posibles. Trabajamos estrechamente con el contenido y los rediseños, moviéndonos con rapidez para adaptarnos a las necesidades reales del negocio.</p>
+      <p>La principal apuesta fue en la completitud del rediseño de la página: no mejoras incrementales, sino una nueva dirección visual coherente. Los productos necesitaban protagonismo total, con imágenes de gran formato que eliminaran el ruido visual.</p>
+
+      <div class="project-mockup" style="background: linear-gradient(135deg, #eee0e2 0%, #e8d0d5 100%);">
+        <span>Versiones alternativas del diseño en 3 grid</span>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Ejecución del proyecto</h2>
+      <p>Una vez que el diseño estuvo finalizado y los últimos cambios se hicieron al requerimiento de iconos y acciones, el proceso de alineación con el equipo de desarrollo comenzó. Fue un proceso en el que cada diseñador de la empresa tiene que saber exactamente qué hacer y por qué.</p>
+      <p>Contra estos obstáculos, las revisiones fueron hechas en el seno de un equipo de diseño liderado internamente por Product Owner. Para estas limitaciones, se hicieron revisiones en los diseños buscando entregar un producto de calidad en poco tiempo.</p>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Resultados y reflexiones</h2>
+      <div class="result-stats">
+        <div class="result-stat">
+          <div class="result-stat-num">+130%</div>
+          <div class="result-stat-label">Incremento en ventas online</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-num">↓38%</div>
+          <div class="result-stat-label">Reducción de bounce rate</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-num">4.8★</div>
+          <div class="result-stat-label">Satisfacción interna del equipo</div>
+        </div>
+      </div>
+      <p>Para mí, este proyecto representó aprender a tener en cuenta el gran número de sistemas que hay que diseñar para este tipo de proyectos. Ha sido gratificante y me ha llevado a la alta satisfacción tanto de clientes como de personas que lo hayan visto.</p>
+      <p>La importancia de la negociación y la comunicación con los desarrolladores para evitar cambios innecesarios en el código se volvió una lección central de este proyecto.</p>
+    </div>
+
+    <div style="text-align:center; padding-top: 20px;">
+      <a class="btn-outline" onclick="showPage('projects')">← Volver a proyectos</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo" onclick="showPage('home')">Andrea<span>.</span></div>
+    <div class="footer-links">
+      <a onclick="showPage('projects')">Proyectos</a>
+      <a onclick="showProject('ondademar')">Siguiente proyecto →</a>
+    </div>
+    <div class="footer-copy">© 2025 Andrea</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════
+     PROJECT: ONDA DE MAR
+════════════════════════════════ -->
+<div class="page" id="page-project-ondademar">
+  <div class="project-detail-hero">
+    <div class="project-detail-hero-bg" style="background: linear-gradient(135deg,var(--sky-deep) 0%,var(--sky) 50%,#5B9EC9 100%)"></div>
+    <div class="project-detail-hero-content">
+      <div class="project-detail-label" onclick="showPage('projects')">← Proyectos</div>
+      <h1 class="project-detail-title">Onda de Mar,<br>volviendo al diseño UI</h1>
+      <div class="project-detail-meta">
+        <div class="project-meta-item"><div class="project-meta-label">Rol</div><div class="project-meta-val">UI Designer</div></div>
+        <div class="project-meta-item"><div class="project-meta-label">Industria</div><div class="project-meta-val">Swimwear / Fashion</div></div>
+        <div class="project-meta-item"><div class="project-meta-label">Herramientas</div><div class="project-meta-val">Figma · Maze</div></div>
+        <div class="project-meta-item"><div class="project-meta-label">Tipo</div><div class="project-meta-val">UI Redesign</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-body">
+    <div class="project-section">
+      <h2 class="project-section-title">Nuevos desafíos</h2>
+      <p>Súbitamente, por la plasticidad de mi rol de investigación, dos colegas del equipo de UX tuvieron que salir a la vez. Al mismo tiempo, nos fueron asignados dos proyectos nuevos. Uno de ellos era Onda de Mar, una página en la que ya habíamos tenido dos redesigns previos que no habían llegado a desarrollarse por los cambiantes requisitos del cliente.</p>
+      <p>La mayor parte de mi experiencia con UI provenía de Google Certificates y Design Systems ya que casi toda mi experiencia práctica había sido de investigación pura. Así que me tuve que actualizar en Figma muy rápido.</p>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Contexto</h2>
+      <p>Onda de Mar ya había pasado por un proceso de investigación exhaustivo, y uno de los principales problemas era la estructura de la página. Viendo la cantidad y la estructura de la página, el objetivo fue diseñar una página remarcable, atractiva y femenina, que resaltara los productos más que los mostrara simplemente.</p>
+      <p>Creamos una serie de <em>benchmarks</em> basados en las conclusiones de investigación, analizando competidores directos en el mercado swimwear de lujo latinoamericano.</p>
+
+      <div class="project-mockup" style="background: linear-gradient(135deg, #d8eaf5 0%, #b8d4e8 100%);">
+        <span>Layout de referencias benchmark</span>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Ideación y conceptualización</h2>
+      <p>Teniendo en cuenta que ya teníamos suficientes insights de investigaciones previas sobre las necesidades del usuario, la combinación de imágenes, su curation y las funcionalidades, tomamos como base las referencias más apropiadas para Onda de Mar.</p>
+      <p>Comparamos tipografías, paletas de color y disposición de grid hasta encontrar el lenguaje visual que comunicara feminidad, exclusividad y calidad latinoamericana.</p>
+
+      <div class="insight-box"><p>"La clave estaba en diseñar desde los resultados de investigación — no desde la estética personal, sino desde lo que los datos decían que los usuarios necesitaban ver primero."</p></div>
+
+      <div class="project-mockup" style="background: linear-gradient(135deg, #e8f0f5 0%, #c8dde9 100%);">
+        <span>Typography Test — exploración tipográfica</span>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Adaptación en Figma</h2>
+      <p>El ambiente nuevo de Figma al principio me confundió, ya que tanto variables como componentes auto-layout me generaron un confusion inicial. Al tomar en cuenta que era un redesign completo, tomé la base de búsqueda de mi colega y comencé a adaptar lo que necesitaba.</p>
+      <p>Fueron bastante útiles las clases de Figma que tomé en aquel entonces: entendí el sistema de búsqueda de clases y estilos, y cómo mis colegas los aplicaban en su trabajo, lo que me fue más fácil para aprender de ellos las mismas funcionalidades en mis diseños.</p>
+
+      <div class="project-mockup" style="background: linear-gradient(135deg, #d5e8f5 0%, #a8cce0 100%);">
+        <span>Onda de Mar — diseño en Figma</span>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Completion del redesign</h2>
+      <p>Al llegar a la fase en que el redesign estaba completo, nuestro equipo de 3 personas era de solo 3 y el lanzamiento debía realizarse en el lapso de las próximas semanas, el proceso de revisión de diseño se inició con los desarrolladores, que en ocasiones sugirieron alternativas e interacciones micro de la página que no estaban previstas en los mockups.</p>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Resultados y reflexiones</h2>
+      <div class="result-stats">
+        <div class="result-stat">
+          <div class="result-stat-num">+89%</div>
+          <div class="result-stat-label">Mejora en tiempo de sesión</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-num">3</div>
+          <div class="result-stat-label">Sprints de diseño completados</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-num">↑2x</div>
+          <div class="result-stat-label">Velocidad en Figma adquirida</div>
+        </div>
+      </div>
+      <p>Desde su lanzamiento, el site ha tenido una reacción muy positiva. Para el proceso de gestión, ha resultado muy útil que desde el principio yo estuviera al tanto de las responsabilidades adicionales del equipo — de ellas tampoco había nadie hasta ese momento, lo que me desafió en múltiples direcciones, empujándome más allá de mi zona de confort.</p>
+    </div>
+
+    <div style="text-align:center; padding-top: 20px;">
+      <a class="btn-outline" onclick="showPage('projects')">← Volver a proyectos</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo" onclick="showPage('home')">Andrea<span>.</span></div>
+    <div class="footer-links">
+      <a onclick="showPage('projects')">Proyectos</a>
+      <a onclick="showProject('lacoste')">Siguiente proyecto →</a>
+    </div>
+    <div class="footer-copy">© 2025 Andrea</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════
+     PROJECT: LACOSTE
+════════════════════════════════ -->
+<div class="page" id="page-project-lacoste">
+  <div class="project-detail-hero">
+    <div class="project-detail-hero-bg" style="background: linear-gradient(135deg,var(--forest) 0%,var(--forest-mid) 50%,#5F8A60 100%)"></div>
+    <div class="project-detail-hero-content">
+      <div class="project-detail-label" onclick="showPage('projects')">← Proyectos</div>
+      <h1 class="project-detail-title">Lacoste Colombia,<br>presencia global local</h1>
+      <div class="project-detail-meta">
+        <div class="project-meta-item"><div class="project-meta-label">Rol</div><div class="project-meta-val">Project Manager</div></div>
+        <div class="project-meta-item"><div class="project-meta-label">Industria</div><div class="project-meta-val">Fashion / Global Retail</div></div>
+        <div class="project-meta-item"><div class="project-meta-label">Herramientas</div><div class="project-meta-val">Jira · Notion · Figma · Slack</div></div>
+        <div class="project-meta-item"><div class="project-meta-label">Tipo</div><div class="project-meta-val">Global Adaptation PM</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-body">
+    <div class="project-section">
+      <h2 class="project-section-title">El reto global</h2>
+      <p>Lacoste es una marca global con presencia en más de 100 países. Su sitio de Colombia necesitaba alinearse con los estándares internacionales de la marca, tomando como referencia principal los sitios de Europa y Argentina — los más maduros en términos de UX y diseño dentro de la corporación.</p>
+      <p>Mi rol fue el de Project Manager, actuando como puente entre el equipo de diseño local, los desarrolladores y los stakeholders internacionales de Lacoste corporativo.</p>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Análisis de referentes</h2>
+      <p>Antes de cualquier acción, hicimos un análisis exhaustivo de los sitios de referencia: Lacoste Francia, Lacoste España y Lacoste Argentina. Documentamos cada componente, flujo de usuario y patrón de diseño que era consistente entre ellos y que debía trasladarse a Colombia.</p>
+      <div class="insight-box"><p>"No se trataba de copiar — se trataba de adaptar la identidad global de Lacoste al contexto digital colombiano, respetando el brand book internacional."</p></div>
+
+      <div class="project-mockup-grid">
+        <div class="project-mockup" style="aspect-ratio:1; background: linear-gradient(135deg,#e8f0e8,#d0e4d0)">
+          <span>Análisis Lacoste Europa</span>
+        </div>
+        <div class="project-mockup" style="aspect-ratio:1; background: linear-gradient(135deg,#dff0e0,#c0d8c2)">
+          <span>Análisis Lacoste Argentina</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Gestión del proceso</h2>
+      <p>Creé un roadmap detallado que dividía el proyecto en 4 fases: auditoría, diseño, desarrollo y QA. Cada fase tenía hitos claros, responsables definidos y criterios de aceptación.</p>
+
+      <ul>
+        <li><strong>Auditoría (Sprint 1-2):</strong> Inventario completo de componentes existentes vs componentes de referencia global.</li>
+        <li><strong>Diseño (Sprint 3-5):</strong> Adaptación de componentes prioritarios — homepage, PLP, PDP y checkout.</li>
+        <li><strong>Desarrollo (Sprint 6-9):</strong> Implementación con revisiones semanales de calidad.</li>
+        <li><strong>QA & Lanzamiento (Sprint 10):</strong> Testing de regresión, testing de usuarios y go-live.</li>
+      </ul>
+
+      <div class="project-mockup" style="background: linear-gradient(135deg,#e8efe8,#d5e5d5)">
+        <span>Roadmap y tablero de gestión en Notion</span>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Comunicación con stakeholders</h2>
+      <p>La mayor parte del desafío de este proyecto era de comunicación: Lacoste corporativo tenía sus propios tiempos, aprobaciones y lineamientos. Aprendí a gestionar expectativas hacia arriba (corporativo internacional) y hacia abajo (equipo local de 6 personas).</p>
+      <p>Implementé reportes semanales de estado con formato visual — dashboards de progreso que podían ser consumidos tanto por el equipo técnico como por directivos sin formación técnica.</p>
+      <p>Cuando surgían bloqueos o desacuerdos entre lo que corporativo pedía y lo que era técnicamente viable localmente, mi rol era encontrar la solución intermedia que satisficiera ambas partes sin comprometer la calidad ni los tiempos.</p>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Adaptaciones locales</h2>
+      <p>No todo del sitio europeo era directamente trasladable. Hicimos adaptaciones clave para el mercado colombiano: métodos de pago locales (PSE, contraentrega), tallas y guías de medidas en formato colombiano, y contenido de campañas localizado.</p>
+      <p>Cada adaptación debía ser aprobada tanto por el equipo local como por el brand team internacional — lo que requería documentación impecable y argumentación basada en datos de usuarios colombianos.</p>
+
+      <div class="insight-box"><p>"La gestión no es solo seguimiento de tareas — es asegurarse de que cada persona en el equipo entienda el porqué de cada decisión, para que el trabajo fluya con propósito."</p></div>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Resultados</h2>
+      <div class="result-stats">
+        <div class="result-stat">
+          <div class="result-stat-num">10</div>
+          <div class="result-stat-label">Sprints completados a tiempo</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-num">98%</div>
+          <div class="result-stat-label">Aprobación brand compliance</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-num">0</div>
+          <div class="result-stat-label">Rollbacks post-lanzamiento</div>
+        </div>
+      </div>
+      <p>El lanzamiento fue exitoso, con aprobación total de Lacoste corporativo. El sitio de Colombia se convirtió en referente para otros países de la región que estaban en proceso de actualización.</p>
+      <p>Este proyecto me enseñó que la gestión de proyectos es esencialmente gestión de personas y de expectativas — y que la documentación clara no es burocracia, es la base de la confianza.</p>
+    </div>
+
+    <div style="text-align:center; padding-top: 20px;">
+      <a class="btn-outline" onclick="showPage('projects')">← Volver a proyectos</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo" onclick="showPage('home')">Andrea<span>.</span></div>
+    <div class="footer-links">
+      <a onclick="showPage('projects')">Proyectos</a>
+      <a onclick="showProject('crocs')">Siguiente proyecto →</a>
+    </div>
+    <div class="footer-copy">© 2025 Andrea</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════
+     PROJECT: CROCS
+════════════════════════════════ -->
+<div class="page" id="page-project-crocs">
+  <div class="project-detail-hero">
+    <div class="project-detail-hero-bg" style="background: linear-gradient(135deg,#8B6914 0%,var(--warm) 50%,#E8C878 100%)"></div>
+    <div class="project-detail-hero-content">
+      <div class="project-detail-label" onclick="showPage('projects')">← Proyectos</div>
+      <h1 class="project-detail-title">Crocs — Split Checkout,<br>diseñando con restricciones</h1>
+      <div class="project-detail-meta">
+        <div class="project-meta-item"><div class="project-meta-label">Rol</div><div class="project-meta-val">UX Designer</div></div>
+        <div class="project-meta-item"><div class="project-meta-label">Industria</div><div class="project-meta-val">Footwear / Ecommerce</div></div>
+        <div class="project-meta-item"><div class="project-meta-label">Herramientas</div><div class="project-meta-val">Figma · Miro · UserTesting</div></div>
+        <div class="project-meta-item"><div class="project-meta-label">Tipo</div><div class="project-meta-val">Feature Design</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-body">
+    <div class="project-section">
+      <h2 class="project-section-title">El problema</h2>
+      <p>Crocs Colombia opera con múltiples bodegas distribuidas geográficamente. La restricción técnica era clara: un usuario no podía comprar simultáneamente productos que estuvieran en bodegas diferentes dentro de un mismo pedido.</p>
+      <p>El resultado era frustrante: los usuarios llegaban al checkout con múltiples productos en su carrito y recibían un mensaje de error genérico sin saber por qué no podían completar su compra. La tasa de abandono en checkout era significativamente alta.</p>
+
+      <div class="insight-box"><p>"El verdadero reto no era solo comunicar el error — era transformar una fricción técnica inevitable en una experiencia que el usuario entendiera y pudiera completar satisfactoriamente."</p></div>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Research del problema</h2>
+      <p>Primero documenté todos los escenarios posibles. ¿En qué punto del flujo de compra se manifestaba el problema? ¿Cómo reaccionaban los usuarios? Analicé grabaciones de sesión de Hotjar y datos de Google Analytics para mapear el comportamiento real.</p>
+
+      <ul>
+        <li>72% de usuarios que llegaban al mensaje de error abandonaban el sitio completamente</li>
+        <li>Solo 18% intentaba modificar su carrito para resolver el problema</li>
+        <li>El 10% restante contactaba a servicio al cliente — saturando el canal</li>
+      </ul>
+
+      <div class="project-mockup-grid">
+        <div class="project-mockup" style="aspect-ratio:1; background: linear-gradient(135deg,#f5ecd5,#edd9a0)">
+          <span>Mapa de flujo actual — pain points</span>
+        </div>
+        <div class="project-mockup" style="aspect-ratio:1; background: linear-gradient(135deg,#ede5c8,#e0ce85)">
+          <span>Análisis de drop-off en checkout</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Ideación de soluciones</h2>
+      <p>Trabajé con el equipo en un workshop de ideación donde exploramos 3 alternativas:</p>
+      <ul>
+        <li><strong>Opción A:</strong> Bloquear la combinación de productos desde el carrito (mala UX — frustrante)</li>
+        <li><strong>Opción B:</strong> Eliminar automáticamente los productos conflictivos (inaceptable — pérdida de ventas)</li>
+        <li><strong>Opción C:</strong> Split checkout — dividir el pedido en órdenes separadas de forma transparente</li>
+      </ul>
+      <p>La opción C era la única que respetaba la intención del usuario y la realidad técnica. El desafío era hacerla intuitiva.</p>
+
+      <div class="project-mockup" style="background: linear-gradient(135deg,#f8f0d8,#f0e4a8)">
+        <span>Workshop de ideación — matriz de decisión</span>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Diseño del split checkout</h2>
+      <p>Diseñé un flujo que detecta automáticamente cuando hay productos de bodegas diferentes en el carrito, y antes del checkout informa al usuario de manera clara y amigable que su pedido se dividirá en dos órdenes separadas.</p>
+      <p>Puntos clave del diseño:</p>
+      <ul>
+        <li><strong>Transparencia total:</strong> El usuario sabe exactamente qué productos van en cada orden, con iconos visuales claros</li>
+        <li><strong>Control del usuario:</strong> Puede revisar y modificar la distribución antes de confirmar</li>
+        <li><strong>Comunicación contextual:</strong> Explicación del porqué en lenguaje humano, no técnico</li>
+        <li><strong>Confirmación doble:</strong> Resumen claro antes del pago final de cada orden</li>
+        <li><strong>Post-compra consolidado:</strong> Aunque son 2 órdenes, el email de confirmación las unifica para no confundir</li>
+      </ul>
+
+      <div class="project-mockup" style="background: linear-gradient(135deg,#f5ead0,#ecd99a)">
+        <span>Wireframes del split checkout — flujo completo</span>
+      </div>
+
+      <div class="project-mockup-grid">
+        <div class="project-mockup" style="aspect-ratio:1; background: linear-gradient(135deg,#f8f0e0,#f0e0a0)">
+          <span>Pantalla de aviso de split</span>
+        </div>
+        <div class="project-mockup" style="aspect-ratio:1; background: linear-gradient(135deg,#f5ead0,#e8d490)">
+          <span>Confirmación de órdenes divididas</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Testing y validación</h2>
+      <p>Realizamos pruebas de usabilidad con 8 usuarios usando el prototipo en Figma. El enfoque principal fue: ¿entienden los usuarios que su pedido se va a dividir? ¿Sienten que tienen control sobre el proceso?</p>
+      <p>Los hallazgos fueron positivos pero revelaron oportunidades de mejora: la primera iteración del aviso no era suficientemente prominente — los usuarios lo ignoraban como si fuera un banner de cookies. Rediseñamos con mayor peso visual y lenguaje más directo.</p>
+
+      <div class="insight-box"><p>"Los usuarios no leían el copy detallado — procesaban visualmente. Eso nos obligó a diseñar la comunicación con iconos y números, no con párrafos."</p></div>
+    </div>
+
+    <div class="project-section">
+      <h2 class="project-section-title">Resultados</h2>
+      <div class="result-stats">
+        <div class="result-stat">
+          <div class="result-stat-num">↓64%</div>
+          <div class="result-stat-label">Reducción de abandono en checkout</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-num">↓82%</div>
+          <div class="result-stat-label">Tickets de soporte por este error</div>
+        </div>
+        <div class="result-stat">
+          <div class="result-stat-num">+41%</div>
+          <div class="result-stat-label">Conversión en pedidos multi-bodega</div>
+        </div>
+      </div>
+      <p>La solución demostró que diseñar bien con restricciones es más valioso que diseñar sin ellas. La creatividad florece cuando el problema está bien definido.</p>
+      <p>Este proyecto me confirmó que el UX más importante no es el que se ve — es el que evita que el usuario fracase en su intención.</p>
+    </div>
+
+    <div style="text-align:center; padding-top: 20px;">
+      <a class="btn-outline" onclick="showPage('projects')">← Volver a proyectos</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo" onclick="showPage('home')">Andrea<span>.</span></div>
+    <div class="footer-links">
+      <a onclick="showPage('projects')">Proyectos</a>
+      <a onclick="showProject('malva')">← Primer proyecto</a>
+    </div>
+    <div class="footer-copy">© 2025 Andrea</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════
+     ABOUT PAGE
+════════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="about-hero">
+    <div class="about-hero-left">
+      <div class="about-hero-left-content">
+        <div class="about-avatar">A</div>
+        <div class="about-name">Andrea</div>
+        <div class="about-title-tag">UX & Product Designer · Colombia</div>
+      </div>
+    </div>
+    <div class="about-hero-right">
+      <div class="section-label">Sobre mí</div>
+      <h2 class="about-intro">
+        Analítica, resolutiva, estructurada.<br>Y fan de los <em>juegos de mesa.</em>
+      </h2>
+      <p class="about-bio">
+        Soy una diseñadora e investigadora UX recorriendo un camino entre las letras y el diseño de experiencia de usuario. Trabajo desde la curiosidad aplicada: no pregunto por teoría abstracta, pregunto para resolver algo real. Me mueve la certeza de que las cosas pueden funcionar mejor — y la determinación de hacer que así sea.
+      </p>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <a class="btn-primary" onclick="showPage('projects')">Ver mi trabajo →</a>
+        <a class="btn-outline" onclick="showPage('contact')">Hablemos</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="about-content">
+    <div class="about-grid">
+      <div class="about-block">
+        <h3 class="about-block-title">Mi manera de pensar</h3>
+        <div class="trait-row">
+          <div class="trait-icon">🧠</div>
+          <div class="trait-text">
+            <strong>Pensamiento sistémico</strong>
+            <span>Pienso en flujos, lógica condicional y arquitectura de información. Busco coherencia técnica y consistencia operativa en cada solución.</span>
+          </div>
+        </div>
+        <div class="trait-row">
+          <div class="trait-icon">⚡</div>
+          <div class="trait-text">
+            <strong>Mentalidad de optimización</strong>
+            <span>No me conformo con respuestas generales — busco precisión. Ajusto, itero y pido versiones mejoradas hasta que algo funcione correctamente.</span>
+          </div>
+        </div>
+        <div class="trait-row">
+          <div class="trait-icon">🎯</div>
+          <div class="trait-text">
+            <strong>Pensamiento dual: estratégico + práctico</strong>
+            <span>Puedo alternar entre estrategia UX de alto nivel y problemas muy prácticos. Flexibilidad para bajar de lo conceptual a lo operativo rápidamente.</span>
+          </div>
+        </div>
+        <div class="trait-row">
+          <div class="trait-icon">🔍</div>
+          <div class="trait-text">
+            <strong>Curiosidad aplicada</strong>
+            <span>Cada pregunta que hago es para resolver algo real. La teoría me interesa solo cuando me ayuda a construir algo mejor.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-block">
+        <h3 class="about-block-title">Lo que me mueve</h3>
+        <div class="trait-row">
+          <div class="trait-icon">✅</div>
+          <div class="trait-text">
+            <strong>Hacer que las cosas funcionen bien</strong>
+            <span>Mi motivación central. Hay una satisfacción profunda en entregar algo que realmente resuelve el problema que debía resolver.</span>
+          </div>
+        </div>
+        <div class="trait-row">
+          <div class="trait-icon">🧩</div>
+          <div class="trait-text">
+            <strong>Reducir la incertidumbre</strong>
+            <span>Los sistemas ambiguos me incomodan. Los diseño para que tengan estructura clara — tanto para usuarios como para equipos.</span>
+          </div>
+        </div>
+        <div class="trait-row">
+          <div class="trait-icon">🌱</div>
+          <div class="trait-text">
+            <strong>Alta responsabilidad</strong>
+            <span>Me hago cargo de los proyectos. Busco soluciones completas. Me quedo hasta que quede bien hecho — y eso me gusta de mí misma.</span>
+          </div>
+        </div>
+        <div class="trait-row">
+          <div class="trait-icon">🤝</div>
+          <div class="trait-text">
+            <strong>Optimizar experiencias</strong>
+            <span>No solo de usuarios digitales — sino de equipos, animales bajo mi cuidado, y todo entorno donde puedo hacer una diferencia positiva.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="skills-section">
+    <h2 class="skills-title">Mis <em>herramientas</em></h2>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-group-title">Diseño</div>
+        <div class="skill-item"><span class="skill-name">Figma</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Adobe XD</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Design Systems</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Prototyping</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Visual Identity</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot"></div><div class="skill-dot"></div></div></div>
+      </div>
+      <div>
+        <div class="skill-group-title">Research</div>
+        <div class="skill-item"><span class="skill-name">User Interviews</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Usability Testing</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Data Analysis</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot"></div><div class="skill-dot"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Personas & Journeys</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Maze / Hotjar</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot"></div></div></div>
+      </div>
+      <div>
+        <div class="skill-group-title">Management</div>
+        <div class="skill-item"><span class="skill-name">Agile / Scrum</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Stakeholder Mgmt</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Jira / Notion</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Project Planning</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Team Coordination</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Board Games Section -->
+  <section class="boardgame-section">
+    <div class="boardgame-text">
+      <div class="section-label">El otro lado</div>
+      <h3 class="boardgame-title">
+        Diseñadora de día,<br>estratega de <em>mesa</em> por placer
+      </h3>
+      <p class="boardgame-desc">
+        Los juegos de mesa no son solo entretenimiento para mí — son un laboratorio de UX y diseño de sistemas. Cada buen juego tiene reglas claras, escalabilidad, equilibrio de poder, feedback loops y una curva de aprendizaje cuidadosamente diseñada.
+      </p>
+      <p class="boardgame-desc" style="margin-top:16px;">
+        Cuando me siento alrededor de un tablero, pienso en mecánicas, en decisiones con consecuencias, en cómo las restricciones generan creatividad. No es muy diferente de diseñar un checkout de ecommerce.
+      </p>
+      <p class="boardgame-desc" style="margin-top:16px;">
+        El diseño analítico, la planificación estratégica a varios movimientos de distancia, la lectura del comportamiento de otros jugadores — todo eso se traduce directamente en cómo abordo mis proyectos.
+      </p>
+    </div>
+    <div class="boardgame-visual">
+      <div class="bg-card">♟</div>
+      <div class="bg-card">🎲</div>
+      <div class="bg-card">🗺</div>
+      <div class="bg-card">🃏</div>
+      <div class="bg-card">⚔️</div>
+      <div class="bg-card">🏰</div>
+      <div class="bg-card">🌍</div>
+      <div class="bg-card">🧠</div>
+      <div class="bg-card">🎯</div>
+    </div>
+  </section>
+
+  <div class="contact-bar" onclick="showPage('contact')" style="cursor:pointer;">
+    <div class="contact-bar-text">¿Hablamos de un proyecto?</div>
+    <button class="contact-bar-btn">→</button>
+  </div>
+
+  <footer>
+    <div class="footer-logo" onclick="showPage('home')">Andrea<span>.</span></div>
+    <div class="footer-links">
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('projects')">Proyectos</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </div>
+    <div class="footer-copy">© 2025 Andrea · UX & Product Designer</div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════
+     CONTACT PAGE
+════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="page-hero" style="min-height:50vh; display:flex; flex-direction:column; justify-content:flex-end;">
+    <div class="page-hero-label">Contacto</div>
+    <h1 class="page-hero-title">Hablemos de<br><em>tu proyecto</em></h1>
+  </div>
+
+  <section style="padding: 100px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;" class="contact-section-grid">
+    <div>
+      <div class="section-label" style="margin-bottom:24px;">¿Cómo puedo ayudarte?</div>
+      <h2 style="font-family:'Cormorant Garamond',serif; font-size:36px; font-weight:300; color:var(--ink); margin-bottom:24px; line-height:1.3;">
+        Desde investigación hasta lanzamiento, estoy lista para el reto.
+      </h2>
+      <p style="font-size:15px; line-height:1.9; color:var(--ink-mid); margin-bottom:32px;">
+        Ya sea que necesites un redesign completo, investigación de usuarios, gestión de un proyecto de ecommerce, o simplemente una conversación sobre cómo mejorar tu experiencia digital — me encanta escuchar primero y proponer después.
+      </p>
+
+      <div style="margin-bottom:40px;">
+        <div class="trait-row">
+          <div class="trait-icon" style="font-size:20px;">📧</div>
+          <div class="trait-text">
+            <strong style="font-size:14px; font-weight:500; color:var(--ink);">Email</strong>
+            <span style="font-size:13px; color:var(--sky);">andrea@uxdesign.co</span>
+          </div>
+        </div>
+        <div class="trait-row">
+          <div class="trait-icon" style="font-size:20px;">💼</div>
+          <div class="trait-text">
+            <strong style="font-size:14px; font-weight:500; color:var(--ink);">LinkedIn</strong>
+            <span style="font-size:13px; color:var(--sky);">linkedin.com/in/andreauxe</span>
+          </div>
+        </div>
+        <div class="trait-row">
+          <div class="trait-icon" style="font-size:20px;">📍</div>
+          <div class="trait-text">
+            <strong style="font-size:14px; font-weight:500; color:var(--ink);">Ubicación</strong>
+            <span style="font-size:13px; color:var(--ink-mid);">Colombia · Disponible para trabajo remoto</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:var(--cloud); padding:48px;">
+      <h3 style="font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:400; color:var(--ink); margin-bottom:32px;">Envíame un mensaje</h3>
+
+      <div style="margin-bottom:20px;">
+        <label style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-light); display:block; margin-bottom:8px;">Nombre</label>
+        <input type="text" placeholder="Tu nombre" style="width:100%; padding:14px 16px; border:1px solid var(--sky-pale); background:white; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--ink); outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--sky)'" onblur="this.style.borderColor='var(--sky-pale)'">
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <label style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-light); display:block; margin-bottom:8px;">Email</label>
+        <input type="email" placeholder="tu@email.com" style="width:100%; padding:14px 16px; border:1px solid var(--sky-pale); background:white; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--ink); outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--sky)'" onblur="this.style.borderColor='var(--sky-pale)'">
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <label style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-light); display:block; margin-bottom:8px;">¿En qué te puedo ayudar?</label>
+        <select style="width:100%; padding:14px 16px; border:1px solid var(--sky-pale); background:white; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--ink-mid); outline:none; appearance:none;">
+          <option>UX/UI Design</option>
+          <option>UX Research</option>
+          <option>Project Management</option>
+          <option>Consultoría ecommerce</option>
+          <option>Otro</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom:28px;">
+        <label style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--ink-light); display:block; margin-bottom:8px;">Mensaje</label>
+        <textarea rows="5" placeholder="Cuéntame sobre tu proyecto..." style="width:100%; padding:14px 16px; border:1px solid var(--sky-pale); background:white; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--ink); outline:none; resize:vertical; transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--sky)'" onblur="this.style.borderColor='var(--sky-pale)'"></textarea>
+      </div>
+
+      <button class="btn-primary" style="width:100%; justify-content:center;">Enviar mensaje →</button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo" onclick="showPage('home')">Andrea<span>.</span></div>
+    <div class="footer-links">
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('projects')">Proyectos</a>
+      <a onclick="showPage('about')">About</a>
+    </div>
+    <div class="footer-copy">© 2025 Andrea · UX & Product Designer</div>
+  </footer>
+</div>
+
+<script>
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+
+  const pageEl = document.getElementById('page-' + page);
+  if (pageEl) {
+    pageEl.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  const navEl = document.getElementById('nav-' + page);
+  if (navEl) navEl.classList.add('active');
+
+  // Map project pages to nav highlight
+  if (['malva','ondademar','lacoste','crocs'].includes(page)) {
+    document.getElementById('nav-projects').classList.add('active');
+  }
+}
+
+function showProject(project) {
+  showPage('project-' + project);
+}
+
+// Handle responsive contact grid
+function handleResize() {
+  const grid = document.querySelector('.contact-section-grid');
+  if (grid) {
+    if (window.innerWidth < 900) {
+      grid.style.gridTemplateColumns = '1fr';
+      grid.style.padding = '60px 28px';
+    } else {
+      grid.style.gridTemplateColumns = '1fr 1fr';
+      grid.style.padding = '100px 80px';
+    }
+  }
+}
+window.addEventListener('resize', handleResize);
+handleResize();
+</script>
+</body>
+</html>
