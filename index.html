@@ -813,6 +813,28 @@ footer {
   margin: 32px 0;
 }
 
+/* Para imágenes reales en proyectos */
+.project-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 32px 0;
+  border: 1px solid var(--sky-pale);
+  border-radius: 2px;
+}
+
+.project-img-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 32px 0;
+}
+.project-img-grid img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--sky-pale);
+}
+
 .result-stat {
   background: var(--cloud);
   padding: 32px;
@@ -890,6 +912,17 @@ footer {
   font-size: 64px;
   font-weight: 300;
   color: rgba(255,255,255,0.7);
+}
+
+.about-photo {
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 3px solid rgba(255,255,255,0.4);
+  margin: 0 auto 24px;
+  display: block;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
 
 .about-name {
@@ -1093,9 +1126,72 @@ footer {
 .fade-up-3 { animation: fadeUp 0.6s 0.3s ease both; }
 .fade-up-4 { animation: fadeUp 0.6s 0.45s ease both; }
 
+/* ─── HAMBURGER ─── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px; height: 40px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+  z-index: 300;
+}
+.hamburger span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 64px; left: 0; right: 0;
+  background: rgba(248,250,252,0.98);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(44,95,138,0.12);
+  z-index: 199;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+.mobile-menu.open {
+  max-height: 300px;
+  padding: 16px 0 24px;
+}
+.mobile-menu a {
+  display: block;
+  padding: 16px 28px;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+  text-decoration: none;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(44,95,138,0.06);
+  transition: color 0.2s, background 0.2s;
+}
+.mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu a:hover, .mobile-menu a.active {
+  color: var(--sky);
+  background: rgba(44,95,138,0.04);
+}
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
   nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .mobile-menu { display: block; }
   .hero, .about-hero, .boardgame-section { grid-template-columns: 1fr; }
   .hero-right, .about-hero-left { display: none; }
   .hero-left, .about-hero-right { padding: 60px 28px; }
@@ -1125,15 +1221,26 @@ footer {
     <a onclick="showPage('about')" id="nav-about">About</a>
     <a onclick="showPage('contact')" id="nav-contact">Contacto</a>
   </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- ─── MOBILE MENU ─── -->
+<div class="mobile-menu" id="mobile-menu">
+  <a onclick="showPage('home'); closeMenu()" id="mnav-home">Home</a>
+  <a onclick="showPage('projects'); closeMenu()" id="mnav-projects">Proyectos</a>
+  <a onclick="showPage('about'); closeMenu()" id="mnav-about">About</a>
+  <a onclick="showPage('contact'); closeMenu()" id="mnav-contact">Contacto</a>
+</div>
 
 <!-- ════════════════════════════════
      HOME PAGE
 ════════════════════════════════ -->
 <div class="page active" id="page-home">
   <!-- Hero -->
-  <section class="hero">
-    <div class="hero-left">
+  <section class="hero" style="grid-template-columns: 1fr; min-height: calc(100vh - 64px);">
+    <div class="hero-left" style="max-width: 720px; padding: 100px 80px;">
       <div class="hero-tag fade-up">UX & Product Designer</div>
       <h1 class="hero-title fade-up-2">
         Conoce a<br><em>Andrea</em>
@@ -1144,16 +1251,6 @@ footer {
       <div class="hero-cta fade-up-4">
         <a class="btn-primary" onclick="showPage('projects')">Ver Proyectos →</a>
         <a class="btn-outline" onclick="showPage('about')">Sobre mí</a>
-      </div>
-    </div>
-    <div class="hero-right">
-      <div class="hero-visual">
-        <span class="hero-visual-name">A</span>
-        <div class="hero-visual-tags">
-          <div class="hero-vtag">UX Research</div>
-          <div class="hero-vtag">UI Design</div>
-          <div class="hero-vtag">Product Management</div>
-        </div>
       </div>
     </div>
     <div class="hero-scroll">Scroll</div>
@@ -1383,7 +1480,15 @@ footer {
       <p>Utilizamos una matriz de impacto para identificar los cambios que tendrían mayor efecto: imagen de hero, jerarquía de productos, tipografía y paleta de colores.</p>
 
       <div class="project-mockup" style="background: linear-gradient(135deg, #f5e8e8 0%, #f0d0d5 100%);">
-        <span>Matriz de impacto — Componentes de Malva</span>
+        <!--
+          🖼 PARA INSERTAR UNA IMAGEN AQUÍ:
+          1. Guarda tu imagen en la misma carpeta que index.html
+             Ejemplo: "malva-matriz.jpg"
+          2. Reemplaza todo este <div class="project-mockup"> por:
+             <img src="malva-matriz.jpg" alt="Matriz de impacto Malva" class="project-img">
+          3. El CSS .project-img ya está listo abajo para que se vea bien
+        -->
+        <span style="font-size:13px; color:var(--ink-light); font-style:italic;">Matriz de impacto — Componentes de Malva</span>
       </div>
     </div>
 
@@ -1793,7 +1898,18 @@ footer {
   <div class="about-hero">
     <div class="about-hero-left">
       <div class="about-hero-left-content">
-        <div class="about-avatar">A</div>
+        <!-- 
+          📸 TU FOTO VA AQUÍ
+          Pasos:
+          1. Guarda tu foto como "foto.jpg" (o .png) en la misma carpeta que el index.html
+          2. Reemplaza el div.about-avatar por esta etiqueta:
+             <img src="foto.jpg" alt="Andrea" class="about-photo">
+          3. Ya está — la imagen se ajusta sola al círculo
+        -->
+        <div class="about-avatar" id="photo-placeholder">A</div>
+        <!-- DESCOMENTA Y EDITA ESTO cuando tengas tu foto lista:
+        <img src="foto.jpg" alt="Andrea" class="about-photo">
+        -->
         <div class="about-name">Andrea</div>
         <div class="about-title-tag">UX & Product Designer · Colombia</div>
       </div>
@@ -1818,28 +1934,28 @@ footer {
       <div class="about-block">
         <h3 class="about-block-title">Mi manera de pensar</h3>
         <div class="trait-row">
-          <div class="trait-icon">🧠</div>
+          <div class="trait-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 16 C16 16, 20 12, 22 16 C24 20, 20 24, 16 22 C12 20, 10 14, 14 11 C18 8, 24 10, 25 16 C26 22, 20 28, 14 26" stroke="var(--sky)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></div>
           <div class="trait-text">
             <strong>Pensamiento sistémico</strong>
             <span>Pienso en flujos, lógica condicional y arquitectura de información. Busco coherencia técnica y consistencia operativa en cada solución.</span>
           </div>
         </div>
         <div class="trait-row">
-          <div class="trait-icon">⚡</div>
+          <div class="trait-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 16 C16 16, 21 11, 23 16 C25 21, 19 26, 14 23 C9 20, 8 13, 13 10 C18 7, 25 9, 26 16 C27 23, 19 29, 12 27 C5 25, 4 16, 8 11" stroke="var(--sky)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></div>
           <div class="trait-text">
             <strong>Mentalidad de optimización</strong>
             <span>No me conformo con respuestas generales — busco precisión. Ajusto, itero y pido versiones mejoradas hasta que algo funcione correctamente.</span>
           </div>
         </div>
         <div class="trait-row">
-          <div class="trait-icon">🎯</div>
+          <div class="trait-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 16 C18 14, 22 13, 23 16 C24 19, 21 22, 18 21 C15 20, 13 17, 14 14 C15 11, 19 10, 22 12 C25 14, 25 19, 22 22 C19 25, 14 25, 11 22 C8 19, 8 13, 11 10" stroke="var(--forest-mid)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></div>
           <div class="trait-text">
             <strong>Pensamiento dual: estratégico + práctico</strong>
             <span>Puedo alternar entre estrategia UX de alto nivel y problemas muy prácticos. Flexibilidad para bajar de lo conceptual a lo operativo rápidamente.</span>
           </div>
         </div>
         <div class="trait-row">
-          <div class="trait-icon">🔍</div>
+          <div class="trait-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 16 C16 16, 20 12, 22 16 C24 20, 20 24, 16 22 C12 20, 10 14, 14 11 C18 8, 24 10, 25 16 C26 22, 20 28, 14 26 C8 24, 6 17, 9 12" stroke="var(--sky-mid)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></div>
           <div class="trait-text">
             <strong>Curiosidad aplicada</strong>
             <span>Cada pregunta que hago es para resolver algo real. La teoría me interesa solo cuando me ayuda a construir algo mejor.</span>
@@ -1850,28 +1966,28 @@ footer {
       <div class="about-block">
         <h3 class="about-block-title">Lo que me mueve</h3>
         <div class="trait-row">
-          <div class="trait-icon">✅</div>
+          <div class="trait-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 16 C16 16, 20 12, 22 16 C24 20, 20 24, 16 22 C12 20, 10 14, 14 11 C18 8, 24 10, 25 16 C26 22, 20 28, 14 26" stroke="var(--forest-mid)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></div>
           <div class="trait-text">
             <strong>Hacer que las cosas funcionen bien</strong>
             <span>Mi motivación central. Hay una satisfacción profunda en entregar algo que realmente resuelve el problema que debía resolver.</span>
           </div>
         </div>
         <div class="trait-row">
-          <div class="trait-icon">🧩</div>
+          <div class="trait-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 16 C16 16, 21 11, 23 16 C25 21, 19 26, 14 23 C9 20, 8 13, 13 10 C18 7, 25 9, 26 16 C27 23, 19 29, 12 27 C5 25, 4 16, 8 11" stroke="var(--sky)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></div>
           <div class="trait-text">
             <strong>Reducir la incertidumbre</strong>
             <span>Los sistemas ambiguos me incomodan. Los diseño para que tengan estructura clara — tanto para usuarios como para equipos.</span>
           </div>
         </div>
         <div class="trait-row">
-          <div class="trait-icon">🌱</div>
+          <div class="trait-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 16 C18 14, 22 13, 23 16 C24 19, 21 22, 18 21 C15 20, 13 17, 14 14 C15 11, 19 10, 22 12 C25 14, 25 19, 22 22 C19 25, 14 25, 11 22 C8 19, 8 13, 11 10" stroke="var(--sky-mid)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></div>
           <div class="trait-text">
             <strong>Alta responsabilidad</strong>
             <span>Me hago cargo de los proyectos. Busco soluciones completas. Me quedo hasta que quede bien hecho — y eso me gusta de mí misma.</span>
           </div>
         </div>
         <div class="trait-row">
-          <div class="trait-icon">🤝</div>
+          <div class="trait-icon"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 16 C16 16, 20 12, 22 16 C24 20, 20 24, 16 22 C12 20, 10 14, 14 11 C18 8, 24 10, 25 16 C26 22, 20 28, 14 26 C8 24, 6 17, 9 12" stroke="var(--forest-mid)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></div>
           <div class="trait-text">
             <strong>Optimizar experiencias</strong>
             <span>No solo de usuarios digitales — sino de equipos, animales bajo mi cuidado, y todo entorno donde puedo hacer una diferencia positiva.</span>
@@ -1908,36 +2024,6 @@ footer {
         <div class="skill-item"><span class="skill-name">Project Planning</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot"></div></div></div>
         <div class="skill-item"><span class="skill-name">Team Coordination</span><div class="skill-dots"><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot filled"></div><div class="skill-dot"></div></div></div>
       </div>
-    </div>
-  </section>
-
-  <!-- Board Games Section -->
-  <section class="boardgame-section">
-    <div class="boardgame-text">
-      <div class="section-label">El otro lado</div>
-      <h3 class="boardgame-title">
-        Diseñadora de día,<br>estratega de <em>mesa</em> por placer
-      </h3>
-      <p class="boardgame-desc">
-        Los juegos de mesa no son solo entretenimiento para mí — son un laboratorio de UX y diseño de sistemas. Cada buen juego tiene reglas claras, escalabilidad, equilibrio de poder, feedback loops y una curva de aprendizaje cuidadosamente diseñada.
-      </p>
-      <p class="boardgame-desc" style="margin-top:16px;">
-        Cuando me siento alrededor de un tablero, pienso en mecánicas, en decisiones con consecuencias, en cómo las restricciones generan creatividad. No es muy diferente de diseñar un checkout de ecommerce.
-      </p>
-      <p class="boardgame-desc" style="margin-top:16px;">
-        El diseño analítico, la planificación estratégica a varios movimientos de distancia, la lectura del comportamiento de otros jugadores — todo eso se traduce directamente en cómo abordo mis proyectos.
-      </p>
-    </div>
-    <div class="boardgame-visual">
-      <div class="bg-card">♟</div>
-      <div class="bg-card">🎲</div>
-      <div class="bg-card">🗺</div>
-      <div class="bg-card">🃏</div>
-      <div class="bg-card">⚔️</div>
-      <div class="bg-card">🏰</div>
-      <div class="bg-card">🌍</div>
-      <div class="bg-card">🧠</div>
-      <div class="bg-card">🎯</div>
     </div>
   </section>
 
@@ -1981,7 +2067,7 @@ footer {
           <div class="trait-icon" style="font-size:20px;">📧</div>
           <div class="trait-text">
             <strong style="font-size:14px; font-weight:500; color:var(--ink);">Email</strong>
-            <span style="font-size:13px; color:var(--sky);">andrea@uxdesign.co</span>
+            <span style="font-size:13px; color:var(--sky);">andrealorena.bulla@gmail.com</span>
           </div>
         </div>
         <div class="trait-row">
@@ -2046,44 +2132,64 @@ footer {
 </div>
 
 <script>
-function showPage(page) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+document.addEventListener('DOMContentLoaded', function() {
 
-  const pageEl = document.getElementById('page-' + page);
+  // ─── Hamburger ───
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+  });
+
+  // ─── Mobile menu links ───
+  document.querySelectorAll('.mobile-menu a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+
+});
+
+// ─── Page navigation (global so onclick in HTML works) ───
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.nav-links a').forEach(function(a) { a.classList.remove('active'); });
+  document.querySelectorAll('.mobile-menu a').forEach(function(a) { a.classList.remove('active'); });
+
+  var pageEl = document.getElementById('page-' + page);
   if (pageEl) {
     pageEl.classList.add('active');
     window.scrollTo(0, 0);
   }
 
-  const navEl = document.getElementById('nav-' + page);
+  var navEl = document.getElementById('nav-' + page);
   if (navEl) navEl.classList.add('active');
 
-  // Map project pages to nav highlight
-  if (['malva','ondademar','lacoste','crocs'].includes(page)) {
-    document.getElementById('nav-projects').classList.add('active');
+  var mnavEl = document.getElementById('mnav-' + page);
+  if (mnavEl) mnavEl.classList.add('active');
+
+  if (['malva','ondademar','lacoste','crocs'].indexOf(page) !== -1) {
+    var np = document.getElementById('nav-projects');
+    var mnp = document.getElementById('mnav-projects');
+    if (np) np.classList.add('active');
+    if (mnp) mnp.classList.add('active');
   }
 }
 
 function showProject(project) {
   showPage('project-' + project);
 }
-
-// Handle responsive contact grid
-function handleResize() {
-  const grid = document.querySelector('.contact-section-grid');
-  if (grid) {
-    if (window.innerWidth < 900) {
-      grid.style.gridTemplateColumns = '1fr';
-      grid.style.padding = '60px 28px';
-    } else {
-      grid.style.gridTemplateColumns = '1fr 1fr';
-      grid.style.padding = '100px 80px';
-    }
-  }
-}
-window.addEventListener('resize', handleResize);
-handleResize();
 </script>
 </body>
 </html>
